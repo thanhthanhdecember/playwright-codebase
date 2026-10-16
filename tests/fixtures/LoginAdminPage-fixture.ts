@@ -1,21 +1,23 @@
 import { test as base, expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
-import { WPAdminBar, AdminMenu, Dashboard, Posts, AddPost, Categories } from "../pages/AdminPage";
+import { AdminPage, WPAdminBar, AdminMenu, Dashboard, Posts, AddPost, Categories, Tags, Media } from "../pages/AdminPage";
+import { adminAccount } from "../test-data/account";
 
-const test = base.extend<{ loginAdminPage: LoginPage; wpAdminBar: WPAdminBar; adminMenu: AdminMenu; dashBoard: Dashboard; posts: Posts; addPost: AddPost; categories: Categories }>({
+const test = base.extend<{ loginAdminPage: LoginPage; adminPage: AdminPage; wpAdminBar: WPAdminBar; adminMenu: AdminMenu; dashBoard: Dashboard; posts: Posts; addPost: AddPost; categories: Categories; tags: Tags; media: Media }>({
 
     loginAdminPage: async ({ page }, use) => {
 
-        const addmin = {
-            user: "betterbytes.academy.admin",
-            pass: "StrongPass@BetterBytesAcademy",
-        }
         const loginAdminPage = new LoginPage(page);
-        await loginAdminPage.loginAdmin(addmin.user, addmin.pass);
+        await loginAdminPage.loginAdmin(adminAccount.user, adminAccount.pass);
         await expect(page).toHaveURL(/\/wp-admin/);
 
         await use(loginAdminPage);
         console.log('LoginAdmin: End of test')
+    },
+
+    adminPage: async ({ page }, use) => {
+        const adminPage = new AdminPage(page);
+        await use(adminPage);
     },
 
     wpAdminBar: async ({ page }, use) => {
@@ -71,8 +73,17 @@ const test = base.extend<{ loginAdminPage: LoginPage; wpAdminBar: WPAdminBar; ad
     categories: async ({ page }, use) => {
         const categories = new Categories(page);
         await use(categories);
-    }
+    },
 
+    tags: async ({ page }, use) => {
+        const tags = new Tags(page);
+        await use(tags);
+    },
+
+    media: async ({ page }, use) => {
+        const media = new Media(page);
+        await use(media);
+    }
 
 });
 
