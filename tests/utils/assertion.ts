@@ -28,9 +28,11 @@ export async function assertAllSearchResult(theList: Locator, titleLocator: Loca
     }
 }
 
-export async function assertLoadItemCountMatchsText (countItemLocator: Locator, patern: RegExp): Promise<Number> {
-    //get Text
-    const textContent = await countItemLocator.textContent();
-    //get Number in text
-    const number = text?.match(getNumber)
+export async function assertItemCount (itemsLocator: Locator, countTextLocator: Locator, regex: RegExp, groupIndex: number = 1): Promise<void>{
+
+    const countText = await countTextLocator.textContent(); //trả về text hiển thị của phần tử.
+    const match = countText!.match(regex) //countText khong null
+    const expectedCount = Number(match![groupIndex]);
+    await expect(itemsLocator).toHaveCount(expectedCount);
+
 }

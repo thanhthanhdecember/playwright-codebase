@@ -320,8 +320,7 @@ export class Media extends AdminPage {
     addMediaBtn: Locator;
     searchTextBox: Locator
     mediaList: Locator;
-    numberOfMedia: Locator;
-    mediaItem: Locator;
+    mediaItems: Locator;
     loadMoreCount: Locator;
 
     constructor(page: Page){
@@ -330,14 +329,8 @@ export class Media extends AdminPage {
         this.addMediaBtn = page.locator('//a[@class="page-title-action aria-button-if-js"]');
         this.searchTextBox = page.locator('//input[@id="media-search-input"]');
         this.mediaList = page.locator('//div[@class="attachments-wrapper"]');
-        this.numberOfMedia = page.locator('//p[@class="load-more-count"]');
-        this.mediaItem = page.locator('//ul[@id="__attachments-view-48"]/child::li');
-        this.loadMoreCount = page.locator('//p[@class="load-more-count"]')
-    }
-
-    countMedia(number: string){
-        const countItem = this.mediaItem.count();
-
+        this.mediaItems = page.locator('//ul[@id="__attachments-view-48"]/child::li');
+        this.loadMoreCount = page.locator('//div[@class="load-more-wrapper"]/child::p')
     }
 
     // lấy số lượng -> assert số item = số lượng
