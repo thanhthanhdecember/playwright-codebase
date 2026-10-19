@@ -16,13 +16,13 @@ test.describe('Media', async () => {
         await expect(media.mediaList).toBeVisible();
         await expect(media.loadMoreCount).toBeVisible();
         // console.log(await media.loadMoreCount.textContent())
-        
-        // assertItemCount(media.mediaItems, media.loadMoreCount, itemCountRegex.mediaLibrary, 1)
 
-        const countText = await media.loadMoreCount.textContent(); //trả về text hiển thị của phần tử.
-        const match = countText!.match(itemCountRegex.mediaLibrary)
-        const expectedCount = Number(match![1]);
-        await expect(media.mediaItems).toHaveCount(expectedCount);
+        assertItemCount(media.mediaItems, media.loadMoreCount, itemCountRegex.mediaLibrary, 1)
 
-    })
+        // const countText = await media.loadMoreCount.textContent(); //trả về text hiển thị của phần tử.
+        // const match = countText!.match(itemCountRegex.mediaLibrary)
+        // const expectedCount = Number(match![1]);
+        // await expect(media.mediaItems).toHaveCount(expectedCount);
+
+    });
 })
